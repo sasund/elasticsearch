@@ -1,11 +1,11 @@
 #
 # Elasticsearch Dockerfile
 #
-# https://github.com/dockerfile/elasticsearch
+# https://github.com/sasund/elasticsearch
 #
 
 # Pull base image.
-FROM dockerfile/java:oracle-java8
+FROM java:8
 
 ENV ES_PKG_NAME elasticsearch-1.7.1
 
@@ -25,6 +25,11 @@ ADD config/elasticsearch.yml /elasticsearch/config/elasticsearch.yml
 
 # Define working directory.
 WORKDIR /data
+
+# Install HEAD plugin
+ RUN \
+   cd /elasticsearch && \
+   bin/plugin -i mobz/elasticsearch-head
 
 # Define default command.
 CMD ["/elasticsearch/bin/elasticsearch"]
